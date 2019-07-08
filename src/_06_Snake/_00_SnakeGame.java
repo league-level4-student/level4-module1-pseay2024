@@ -75,7 +75,7 @@ public class _00_SnakeGame implements ActionListener, KeyListener {
 
 	public void startGame() {
 		//1. Save the instructions for the game in the following string variable.
-		String instructions = "";
+		String instructions = "you hit buttons to make snake get food";
 		
 		String[] options = new String[] { "Expert", "Moderate", "Beginner" };
 		int input = JOptionPane.showOptionDialog(null, instructions, "Snake", 0, -1, null, options, 0);
@@ -85,8 +85,23 @@ public class _00_SnakeGame implements ActionListener, KeyListener {
 		//2. Use a switch statement to determine which difficulty was chosen.
 		//   Use timer.setDelay(delay) with different numbers to change the speed
 		//   of the game. The smaller the number, the faster it goes.
-
+		final int EXPERT = 0;
+		final int MODERATE = 1;
+		final int BEGINNER = 2;
+		switch(input)
+		{
+		case EXPERT:
+			timer.setDelay(20);
+			break;
+		case MODERATE:
+			timer.setDelay(40);
+			break;
+		case BEGINNER:
+			timer.setDelay(60);
+			break;
+		}
 		//3. start the timer
+		timer.start();
 	}
 
 	public static void main(String[] args) {
@@ -103,7 +118,24 @@ public class _00_SnakeGame implements ActionListener, KeyListener {
 	public void keyPressed(KeyEvent e) {
 		//1. Use a switch statement on e.getKeyCode()
 		//   to determine which key was pressed.
-		
+		switch (e.getKeyCode())
+		{
+		case 32://SPACE
+			
+			break;
+		case 37://LEFT
+			
+			break;
+		case 38://UP
+			
+			break;
+		case 39://right
+			
+			break;
+		case 40://down
+			
+			break;
+		}
 		// if an arrow key is pressed, set the snake's 
 		// direction accordingly
 		
