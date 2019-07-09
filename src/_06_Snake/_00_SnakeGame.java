@@ -91,13 +91,13 @@ public class _00_SnakeGame implements ActionListener, KeyListener {
 		switch(input)
 		{
 		case EXPERT:
-			timer.setDelay(20);
+			timer.setDelay(50);;
 			break;
 		case MODERATE:
-			timer.setDelay(40);
+			timer.setDelay(100);
 			break;
 		case BEGINNER:
-			timer.setDelay(60);
+			timer.setDelay(200);
 			break;
 		default:
 			System.out.println("Something went wrong");
@@ -166,13 +166,13 @@ public class _00_SnakeGame implements ActionListener, KeyListener {
 		//2. tell the user their snake is dead
 		JOptionPane.showMessageDialog(null, "Your snake is dead");
 		//3. ask them if they want to play again.
-		String input = JOptionPane.showInputDialog("do you want to play again").toLowerCase();
+		String input = JOptionPane.showInputDialog("Do you want to play again?").toLowerCase();
 		//4. if they want to play again
 		//   reset the snake and the food and start the timer
 		//   else, exit the game
 		if (input == "y" || input == "yes")
 		{
-			snake.reset(new Location(new Random().nextInt(WIDTH), new Random().nextInt(HEIGHT)));
+			snake.reset(new Location(new Random().nextInt(WIDTH/snake.BODY_SIZE), new Random().nextInt(HEIGHT/snake.BODY_SIZE)));
 			setFoodLocation();
 		}
 		// ???????????????????????????????? exit the game
@@ -186,13 +186,18 @@ public class _00_SnakeGame implements ActionListener, KeyListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		//1. update the snake
-
+		snake.update();
 		//2. if the snake is colliding with its own body 
 		//   or if the snake is out of bounds, call gameOver
-
+		if (snake.isHeadCollidingWithBody() || snake.isOutOfBounds()) gameOver();
 		//3. if the location of the head is equal to the location of the food,
 		// 	 feed the snake and set the food location
-
+		if (snake.getHeadLocation().equals(foodLocation))
+		{
+			snake.feed();
+			setFoodLocation();
+		}
 		//4. call panel.repaint();
+		panel.repaint();
 	}
 }

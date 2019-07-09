@@ -26,6 +26,7 @@ public class Snake {
 	public void feed() {
 		//1. add a new SnakeSegment object to the snake
 		snake.add(new SnakeSegment(snake.get(0).getLocation(), BODY_SIZE));
+		System.out.println(snake.size());
 	}
 
 	public Location getHeadLocation() {
@@ -47,19 +48,19 @@ public class Snake {
 			x++;
 			break;
 		case UP:
-			y++;
+			y--;
 			break;
 		case DOWN:
-			y--;
+			y++;
 			break;
 		}
 
 		//2. Iterate through the SnakeSegments in reverse order
 		//2a. Update each snake segment to the location of the segment 
 		//    in front of it.
-		for (int i = snake.size() - 2; i >= 0; i--)
+		for (int i = snake.size() - 1; i > 0; i--)
 		{
-			snake.get(i).setLocation(snake.get(i+1).getLocation());
+			snake.get(i).setLocation(snake.get(i-1).getLocation());
 		}
 		//3. set the location of the head to the new location calculated in step 1
 		head.setLocation(new Location(x,y));
@@ -97,12 +98,13 @@ public class Snake {
 		//1. complete the method so it returns true if the head of the snake is outside of the window
 		//   and false otherwise
 		Location loc = head.getLocation();
-		if (loc.x < 0 || loc.x > _00_SnakeGame.WINDOW_WIDTH)
+		if (loc.x*BODY_SIZE < 0 || loc.x*BODY_SIZE > _00_SnakeGame.WINDOW_WIDTH)
 		{
-			if (loc.y < 0 || loc.y > _00_SnakeGame.WINDOW_HEIGHT)
-			{
-				return true;
-			}
+			return true;
+		}
+		if (loc.y < 0 || loc.y > _00_SnakeGame.WINDOW_HEIGHT)
+		{
+			return true;
 		}
 		return false;
 	}
